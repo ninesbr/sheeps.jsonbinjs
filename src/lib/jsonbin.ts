@@ -1,10 +1,24 @@
 import {JsonBin} from "./jsonbin.interface";
-import {JsonBinConfiguration, ListInput} from "./jsonbin.data";
+import {
+    DeleteInput,
+    DeleteOutput,
+    JsonBinConfiguration,
+    PatchInput,
+    PatchOutput,
+    PushInput,
+    PushOutput,
+    SearchCountOutput,
+    SearchInput,
+    SearchOutput,
+    SearchUniqueInput,
+    SearchUniqueOutput,
+    StreamEvent
+} from "./jsonbin.data";
 import {JsonBinServerInterface} from "./jsonbin.server.interfaces";
 import {JsonbinServer} from "./jsonbin.server";
 
 export const New = async (config: JsonBinConfiguration): Promise<JsonBin> => {
-    const server = new JsonbinServer(config.host, config.port, config.insecure);
+    const server = new JsonbinServer(config.host, config.port, config.accessKey, config.insecure);
     await server.connect(config.readTimeoutInSeconds);
     return new JsonBinImpl(server);
 }
@@ -16,12 +30,36 @@ export class JsonBinImpl implements JsonBin {
         this._server = server;
     }
 
-    documents(input: ListInput): Promise<any> {
+    CountDocuments(input: SearchInput): Promise<SearchCountOutput> {
+        return this._server.countDocuments(input);
+    }
+
+    DeleteDocuments(input: DeleteInput): Promise<DeleteOutput> {
+        return this._server.drop(input);
+    }
+
+    Disconnect() {
+        this._server.disconnect();
+    }
+
+    GetDocument(input: SearchUniqueInput): Promise<SearchUniqueOutput> {
+        return this._server.document(input);
+    }
+
+    GetDocuments(input: SearchInput): Promise<SearchOutput> {
         return this._server.documents(input);
     }
 
-    disconnect() {
-        this._server.disconnect();
+    GetStreamDocuments(input: SearchInput, event: StreamEvent): Promise<void> {
+        return this._server.streamDocuments(input, event);
+    }
+
+    PatchDocuments(input: PatchInput): Promise<PatchOutput> {
+        return this._server.patch(input);
+    }
+
+    PushDocuments(input: PushInput): Promise<PushOutput> {
+        return this._server.save(input);
     }
 
 }
