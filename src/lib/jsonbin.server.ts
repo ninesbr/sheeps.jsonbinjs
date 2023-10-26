@@ -4,7 +4,7 @@ import {
     GetDocRequest,
     GetDocsRequest,
     GetDocsStreamResponse,
-    PatchDocsRequest,
+    PatchDocsRequest, PingRequest,
     PushDocsRequest
 } from "./message_pb";
 import {
@@ -14,12 +14,14 @@ import {
     PushInput,
     StreamEvent,
     SearchUniqueInput,
-    DeleteOutput, PatchOutput, PushOutput, SearchUniqueOutput, SearchCountOutput, SearchOutput
+    DeleteOutput, PatchOutput, PushOutput, SearchUniqueOutput, SearchCountOutput, SearchOutput, PingOutput
 } from "./jsonbin.data";
 import {JsonBinServerInterface} from "./jsonbin.server.interfaces";
 import {JsonBinError} from "./jsonbin.error";
 import {JsonStorageServiceClient} from "./message_grpc_pb";
 import {isEmpty, isJWT, isNotEmpty} from "class-validator";
+import { Timestamp } from 'google-protobuf/google/protobuf/timestamp_pb';
+import { Empty } from 'google-protobuf/google/protobuf/empty_pb.js';
 
 const AccessKeyHeader = "x-access-key";
 const AccessKeyNotFound = () => ErrorReject('invalid access key, verify configuration');
@@ -243,15 +245,23 @@ export class JsonbinServer implements JsonBinServerInterface {
             return AccessKeyNotFound();
         }
 
-        if(isEmpty(input.uniqueIds)) {
-            return ErrorReject('require uniqueIds');
+        if (isEmpty(input.uniqueIds) && isEmpty(input.prefix)) {
+            return ErrorReject('uniqueIds or prefix must be provided.');
         }
 
         const req = new DeleteDocsRequest();
         req.setTarget(input.target);
-        for (const uid of input.uniqueIds) {
-            req.addUniqueids(uid)
+
+        if(isNotEmpty(input.uniqueIds)) {
+            for (const uid of input.uniqueIds) {
+                req.addUniqueids(uid)
+            }
         }
+
+        if (isNotEmpty(input.prefix)) {
+            req.setWithprefix(input.prefix);
+        }
+
         const m = new Metadata();
         m.set(AccessKeyHeader, this._token)
         return new Promise<DeleteOutput>((resolve, reject) => {
@@ -261,7 +271,8 @@ export class JsonbinServer implements JsonBinServerInterface {
                     return;
                 }
                 resolve({
-                    ids: res.getUniqueidsList()
+                    ids: res.getUniqueidsList(),
+                    rowsAffected: res.getRowsaffected()
                 });
             });
         });
@@ -272,5 +283,48 @@ export class JsonbinServer implements JsonBinServerInterface {
         if (this._client) {
             this._client.close();
         }
+    }
+
+    ping(): Promise<PingOutput> {
+        return new Promise((resolve, reject) => {
+            const timestamp = Timestamp.fromDate(new Date());
+            const req = new PingRequest()
+            req.setNow(timestamp);
+            this._client.ping(req, (err, res) => {
+                if (err) {
+                    reject(new JsonBinError(err.message));
+                    return;
+                }
+
+                const now = res.getNow();
+
+                resolve({
+                    latency: res.getLatency(),
+                    now:  now?.toDate(),
+                });
+            });
+        });
+    }
+
+    about(): Promise<any> {
+
+        return new Promise((resolve, reject) => {
+            this._client.about(new Empty(), (err, res) => {
+                if (err) {
+                    reject(new JsonBinError(err.message));
+                    return;
+                }
+                const m = {};
+                res.getInfoMap().forEach((v: string, k: any) => {
+                    m[k] = v;
+                })
+
+                resolve(m);
+            });
+        });
+    }
+
+    isConnect(): boolean {
+        return this._client && this._client.getChannel().getConnectivityState(false) === 2;
     }
 }

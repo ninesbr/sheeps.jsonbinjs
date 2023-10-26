@@ -6,8 +6,12 @@
 
 import * as grpc from "@grpc/grpc-js";
 import * as message_pb from "./message_pb";
+import * as google_protobuf_timestamp_pb from "google-protobuf/google/protobuf/timestamp_pb";
+import * as google_protobuf_empty_pb from "google-protobuf/google/protobuf/empty_pb";
 
 interface IJsonStorageServiceService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
+    about: IJsonStorageServiceService_IAbout;
+    ping: IJsonStorageServiceService_IPing;
     getDocument: IJsonStorageServiceService_IGetDocument;
     getDocuments: IJsonStorageServiceService_IGetDocuments;
     getStreamDocuments: IJsonStorageServiceService_IGetStreamDocuments;
@@ -17,6 +21,24 @@ interface IJsonStorageServiceService extends grpc.ServiceDefinition<grpc.Untyped
     deleteDocuments: IJsonStorageServiceService_IDeleteDocuments;
 }
 
+interface IJsonStorageServiceService_IAbout extends grpc.MethodDefinition<google_protobuf_empty_pb.Empty, message_pb.AboutResponse> {
+    path: "/pb.JsonStorageService/About";
+    requestStream: false;
+    responseStream: false;
+    requestSerialize: grpc.serialize<google_protobuf_empty_pb.Empty>;
+    requestDeserialize: grpc.deserialize<google_protobuf_empty_pb.Empty>;
+    responseSerialize: grpc.serialize<message_pb.AboutResponse>;
+    responseDeserialize: grpc.deserialize<message_pb.AboutResponse>;
+}
+interface IJsonStorageServiceService_IPing extends grpc.MethodDefinition<message_pb.PingRequest, message_pb.PingResponse> {
+    path: "/pb.JsonStorageService/Ping";
+    requestStream: false;
+    responseStream: false;
+    requestSerialize: grpc.serialize<message_pb.PingRequest>;
+    requestDeserialize: grpc.deserialize<message_pb.PingRequest>;
+    responseSerialize: grpc.serialize<message_pb.PingResponse>;
+    responseDeserialize: grpc.deserialize<message_pb.PingResponse>;
+}
 interface IJsonStorageServiceService_IGetDocument extends grpc.MethodDefinition<message_pb.GetDocRequest, message_pb.GetDocResponse> {
     path: "/pb.JsonStorageService/GetDocument";
     requestStream: false;
@@ -84,6 +106,8 @@ interface IJsonStorageServiceService_IDeleteDocuments extends grpc.MethodDefinit
 export const JsonStorageServiceService: IJsonStorageServiceService;
 
 export interface IJsonStorageServiceServer extends grpc.UntypedServiceImplementation {
+    about: grpc.handleUnaryCall<google_protobuf_empty_pb.Empty, message_pb.AboutResponse>;
+    ping: grpc.handleUnaryCall<message_pb.PingRequest, message_pb.PingResponse>;
     getDocument: grpc.handleUnaryCall<message_pb.GetDocRequest, message_pb.GetDocResponse>;
     getDocuments: grpc.handleUnaryCall<message_pb.GetDocsRequest, message_pb.GetDocsResponse>;
     getStreamDocuments: grpc.handleServerStreamingCall<message_pb.GetDocsRequest, message_pb.GetDocsStreamResponse>;
@@ -94,6 +118,12 @@ export interface IJsonStorageServiceServer extends grpc.UntypedServiceImplementa
 }
 
 export interface IJsonStorageServiceClient {
+    about(request: google_protobuf_empty_pb.Empty, callback: (error: grpc.ServiceError | null, response: message_pb.AboutResponse) => void): grpc.ClientUnaryCall;
+    about(request: google_protobuf_empty_pb.Empty, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: message_pb.AboutResponse) => void): grpc.ClientUnaryCall;
+    about(request: google_protobuf_empty_pb.Empty, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: message_pb.AboutResponse) => void): grpc.ClientUnaryCall;
+    ping(request: message_pb.PingRequest, callback: (error: grpc.ServiceError | null, response: message_pb.PingResponse) => void): grpc.ClientUnaryCall;
+    ping(request: message_pb.PingRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: message_pb.PingResponse) => void): grpc.ClientUnaryCall;
+    ping(request: message_pb.PingRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: message_pb.PingResponse) => void): grpc.ClientUnaryCall;
     getDocument(request: message_pb.GetDocRequest, callback: (error: grpc.ServiceError | null, response: message_pb.GetDocResponse) => void): grpc.ClientUnaryCall;
     getDocument(request: message_pb.GetDocRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: message_pb.GetDocResponse) => void): grpc.ClientUnaryCall;
     getDocument(request: message_pb.GetDocRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: message_pb.GetDocResponse) => void): grpc.ClientUnaryCall;
@@ -118,6 +148,12 @@ export interface IJsonStorageServiceClient {
 
 export class JsonStorageServiceClient extends grpc.Client implements IJsonStorageServiceClient {
     constructor(address: string, credentials: grpc.ChannelCredentials, options?: Partial<grpc.ClientOptions>);
+    public about(request: google_protobuf_empty_pb.Empty, callback: (error: grpc.ServiceError | null, response: message_pb.AboutResponse) => void): grpc.ClientUnaryCall;
+    public about(request: google_protobuf_empty_pb.Empty, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: message_pb.AboutResponse) => void): grpc.ClientUnaryCall;
+    public about(request: google_protobuf_empty_pb.Empty, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: message_pb.AboutResponse) => void): grpc.ClientUnaryCall;
+    public ping(request: message_pb.PingRequest, callback: (error: grpc.ServiceError | null, response: message_pb.PingResponse) => void): grpc.ClientUnaryCall;
+    public ping(request: message_pb.PingRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: message_pb.PingResponse) => void): grpc.ClientUnaryCall;
+    public ping(request: message_pb.PingRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: message_pb.PingResponse) => void): grpc.ClientUnaryCall;
     public getDocument(request: message_pb.GetDocRequest, callback: (error: grpc.ServiceError | null, response: message_pb.GetDocResponse) => void): grpc.ClientUnaryCall;
     public getDocument(request: message_pb.GetDocRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: message_pb.GetDocResponse) => void): grpc.ClientUnaryCall;
     public getDocument(request: message_pb.GetDocRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: message_pb.GetDocResponse) => void): grpc.ClientUnaryCall;

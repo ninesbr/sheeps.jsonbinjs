@@ -4,7 +4,7 @@ import {
     DeleteOutput,
     JsonBinConfiguration,
     PatchInput,
-    PatchOutput,
+    PatchOutput, PingOutput,
     PushInput,
     PushOutput,
     SearchCountOutput,
@@ -42,6 +42,10 @@ export class JsonBinImpl implements JsonBin {
         this._server.disconnect();
     }
 
+    IsConnect(): boolean {
+        return this._server.isConnect();
+    }
+
     GetDocument(input: SearchUniqueInput): Promise<SearchUniqueOutput> {
         return this._server.document(input);
     }
@@ -62,4 +66,11 @@ export class JsonBinImpl implements JsonBin {
         return this._server.save(input);
     }
 
+    Ping(): Promise<PingOutput>{
+        return this._server.ping();
+    }
+
+    About(): Promise<any>{
+        return this._server.about();
+    }
 }

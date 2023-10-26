@@ -2,7 +2,7 @@ import {
     DeleteInput,
     DeleteOutput,
     PatchInput,
-    PatchOutput,
+    PatchOutput, PingOutput,
     PushInput,
     PushOutput,
     SearchCountOutput,
@@ -30,4 +30,10 @@ export interface JsonBin {
     DeleteDocuments(input: DeleteInput): Promise<DeleteOutput>;
 
     Disconnect();
+
+    IsConnect(): boolean;
+
+    Ping(): Promise<PingOutput>;
+
+    About(): Promise<any>;
 }

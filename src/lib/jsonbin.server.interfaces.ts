@@ -5,7 +5,7 @@ import {
     SearchUniqueInput,
     PatchInput,
     DeleteInput,
-    DeleteOutput, PatchOutput, PushOutput, SearchUniqueOutput, SearchOutput, SearchCountOutput
+    DeleteOutput, PatchOutput, PushOutput, SearchUniqueOutput, SearchOutput, SearchCountOutput, PingOutput
 } from "./jsonbin.data";
 
 export interface JsonBinServerInterface {
@@ -25,5 +25,11 @@ export interface JsonBinServerInterface {
 
     drop(input: DeleteInput): Promise<DeleteOutput>;
 
+    ping(): Promise<PingOutput>;
+
+    about(): Promise<any>;
+
     disconnect();
+
+    isConnect(): boolean;
 }

@@ -1,18 +1,19 @@
 # Json Storage Client Javascript 🌪🎃️
 ## interface to store & retrieve your JSON data from the cloud.
-```
+```shell
 npm install --save @sheepsbr/jsonbinjs
 ```
 
 ```javascript
 import {New} from '@sheepsbr/jsonbinjs';
 
+// create a new json storage client
 const jsonStorage = await New({
     host: <string>,
     port: <number>,
     insecure: <boolean>,
     accessKey: <string>,
-    readTimeoutInSeconds: <number>
+    readTimeoutInSeconds: <number>,
 });
 
 // Get Documents
@@ -41,7 +42,8 @@ await jsonStorage.GetStreamDocuments({query: {}}, function (document) {
     console.log(document._id);
 });
 
-// Push Documents
+// Push Documents 
+// id is required
 const push = await jsonStorage.PushDocuments({
     documents: [
         {
@@ -84,6 +86,7 @@ const push = await jsonStorage.PushDocuments({
 });
 
 // Patch Documents
+// id is required
  const patch = await jsonStorage.PatchDocuments({
     documents: [
         {
@@ -100,10 +103,54 @@ const push = await jsonStorage.PushDocuments({
 // Remove Documents
 const removes = await jsonStorage.DeleteDocuments({
     uniqueIds: ['63b4b54b6c20f0c2b73ca70c', '63b4b54b81613993d7366e1c']
+}); 
+                        
+// Remove Documents containing a prefix in ID 
+const removes = await jsonStorage.DeleteDocuments({
+    prefix: '63b4b54b6c20f0c2b73ca70c';
 });
 
-// Disconnect
 
+// About
+// information about the server
+const about = await jsonStorage.About();
+
+// Ping
+// ping the server
+const ping = await jsonStorage.Ping();
+
+                        
+// Disconnect                       
 jsonStorage.Disconnect();
+
+```
+## Create instance with pool
+```javascript
+const {JsonBinPool, JsonBin } from '@sheepsbr/jsonbinjs';
+
+const CONFIG = {
+    host: <string>,                  // required   
+    port: <number>,                  // required
+    insecure?: <boolean>,            // optional default true
+    accessKey: <string>,             // required   
+    readTimeoutInSeconds?: <number>, // optional default 30
+    poolMin?: <number>,              // optional default 1
+    poolMax?: <number>               // optional default 2
+};
+
+const jsonbin = new JsonBinPool(CONFIG);
+// Examples:
+// use jsonbin reference in methods
+const ping = await jsonbin.exec( (bin: JsonBin) => bin.Ping() );
+
+// get server version                                
+const version = await jsonbin.exec( async (bin: JsonBin) => {
+    const about = await bin.About();
+    return about.version;
+} );
+
+
+// destroy pool
+await jsonbin.destroyQuietly();
 
 ```

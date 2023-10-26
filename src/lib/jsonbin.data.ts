@@ -26,7 +26,8 @@ export interface PatchInput {
 
 export interface DeleteInput {
     target?: string
-    uniqueIds: string[]
+    uniqueIds?: string[]
+    prefix?: string;
 }
 
 export interface SearchOutput {
@@ -52,7 +53,13 @@ export interface PatchOutput {
 }
 
 export interface DeleteOutput {
-    ids: string[];
+    ids?: string[];
+    rowsAffected?: number;
+}
+
+export interface PingOutput {
+    latency: number;
+    now: Date;
 }
 
 export interface JsonBinConfiguration {
@@ -61,4 +68,7 @@ export interface JsonBinConfiguration {
     insecure?: boolean
     accessKey?: string
     readTimeoutInSeconds?: number
+    poolName?: string
+    poolMin?: number
+    poolMax?: number
 }
