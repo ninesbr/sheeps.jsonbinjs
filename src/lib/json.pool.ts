@@ -37,7 +37,7 @@ export class JsonBinPool {
                 conn.Disconnect();
             },
             validate: (conn: JsonBin): boolean => {
-                return conn.IsConnect();
+                return conn.IsConnected();
             },
             max: config.poolMax || 2,
             min: config.poolMin || 1,
