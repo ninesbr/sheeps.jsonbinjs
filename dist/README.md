@@ -119,6 +119,8 @@ const about = await jsonStorage.About();
 // ping the server
 const ping = await jsonStorage.Ping();
 
+// check connection
+jsonStorage.IsConnected();
                         
 // Disconnect                       
 jsonStorage.Disconnect();

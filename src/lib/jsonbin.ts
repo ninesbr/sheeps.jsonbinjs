@@ -42,7 +42,7 @@ export class JsonBinImpl implements JsonBin {
         this._server.disconnect();
     }
 
-    IsConnect(): boolean {
+    IsConnected(): boolean {
         return this._server.isConnect();
     }
 

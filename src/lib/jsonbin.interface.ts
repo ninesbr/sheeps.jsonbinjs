@@ -31,7 +31,7 @@ export interface JsonBin {
 
     Disconnect();
 
-    IsConnect(): boolean;
+    IsConnected(): boolean;
 
     Ping(): Promise<PingOutput>;
 
