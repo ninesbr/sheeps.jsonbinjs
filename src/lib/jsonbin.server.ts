@@ -83,7 +83,9 @@ export class JsonbinServer implements JsonBinServerInterface {
 
         const req = new GetDocsRequest();
         req.setTarget(input.target);
-        for (const [key, value] of Object.entries(input.query)) {
+        for (let [key, value] of Object.entries(input.query)) {
+            key = key.replace(/\(/g, '\[')
+                .replace(/\)/g, '\]');
             req.getQueryMap().set(`${key}`, `${value}`);
         }
 
@@ -119,7 +121,9 @@ export class JsonbinServer implements JsonBinServerInterface {
         }
         const req = new CountDocsRequest();
         req.setTarget(input.target);
-        for (const [key, value] of Object.entries(input.query)) {
+        for (let [key, value] of Object.entries(input.query)) {
+            key = key.replace(/\(/g, '\[')
+                .replace(/\)/g, '\]');
             req.getQueryMap().set(`${key}`, `${value}`);
         }
         const m = new Metadata();
@@ -167,7 +171,9 @@ export class JsonbinServer implements JsonBinServerInterface {
         }
         const req = new GetDocsRequest();
         req.setTarget(input.target);
-        for (const [key, value] of Object.entries(input.query)) {
+        for (let [key, value] of Object.entries(input.query)) {
+            key = key.replace(/\(/g, '\[')
+                .replace(/\)/g, '\]');
             req.getQueryMap().set(`${key}`, `${value}`);
         }
         const m = new Metadata();
