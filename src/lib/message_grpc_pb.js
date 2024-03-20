@@ -50,6 +50,28 @@ function deserialize_pb_CountDocsResponse(buffer_arg) {
   return message_pb.CountDocsResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_pb_DelRequest(arg) {
+  if (!(arg instanceof message_pb.DelRequest)) {
+    throw new Error('Expected argument of type pb.DelRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_pb_DelRequest(buffer_arg) {
+  return message_pb.DelRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_pb_DelResponse(arg) {
+  if (!(arg instanceof message_pb.DelResponse)) {
+    throw new Error('Expected argument of type pb.DelResponse');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_pb_DelResponse(buffer_arg) {
+  return message_pb.DelResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_pb_DeleteDocsRequest(arg) {
   if (!(arg instanceof message_pb.DeleteDocsRequest)) {
     throw new Error('Expected argument of type pb.DeleteDocsRequest');
@@ -127,6 +149,28 @@ function deserialize_pb_GetDocsStreamResponse(buffer_arg) {
   return message_pb.GetDocsStreamResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_pb_GetRequest(arg) {
+  if (!(arg instanceof message_pb.GetRequest)) {
+    throw new Error('Expected argument of type pb.GetRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_pb_GetRequest(buffer_arg) {
+  return message_pb.GetRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_pb_GetResponse(arg) {
+  if (!(arg instanceof message_pb.GetResponse)) {
+    throw new Error('Expected argument of type pb.GetResponse');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_pb_GetResponse(buffer_arg) {
+  return message_pb.GetResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_pb_PatchDocsRequest(arg) {
   if (!(arg instanceof message_pb.PatchDocsRequest)) {
     throw new Error('Expected argument of type pb.PatchDocsRequest');
@@ -191,6 +235,28 @@ function serialize_pb_PushDocsResponse(arg) {
 
 function deserialize_pb_PushDocsResponse(buffer_arg) {
   return message_pb.PushDocsResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_pb_SetRequest(arg) {
+  if (!(arg instanceof message_pb.SetRequest)) {
+    throw new Error('Expected argument of type pb.SetRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_pb_SetRequest(buffer_arg) {
+  return message_pb.SetRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_pb_SetResponse(arg) {
+  if (!(arg instanceof message_pb.SetResponse)) {
+    throw new Error('Expected argument of type pb.SetResponse');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_pb_SetResponse(buffer_arg) {
+  return message_pb.SetResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 
@@ -297,3 +363,40 @@ var JsonStorageServiceService = exports.JsonStorageServiceService = {
 };
 
 exports.JsonStorageServiceClient = grpc.makeGenericClientConstructor(JsonStorageServiceService);
+var KeyValueServiceService = exports.KeyValueServiceService = {
+  get: {
+    path: '/pb.KeyValueService/Get',
+    requestStream: false,
+    responseStream: false,
+    requestType: message_pb.GetRequest,
+    responseType: message_pb.GetResponse,
+    requestSerialize: serialize_pb_GetRequest,
+    requestDeserialize: deserialize_pb_GetRequest,
+    responseSerialize: serialize_pb_GetResponse,
+    responseDeserialize: deserialize_pb_GetResponse,
+  },
+  set: {
+    path: '/pb.KeyValueService/Set',
+    requestStream: false,
+    responseStream: false,
+    requestType: message_pb.SetRequest,
+    responseType: message_pb.SetResponse,
+    requestSerialize: serialize_pb_SetRequest,
+    requestDeserialize: deserialize_pb_SetRequest,
+    responseSerialize: serialize_pb_SetResponse,
+    responseDeserialize: deserialize_pb_SetResponse,
+  },
+  delete: {
+    path: '/pb.KeyValueService/Delete',
+    requestStream: false,
+    responseStream: false,
+    requestType: message_pb.DelRequest,
+    responseType: message_pb.DelResponse,
+    requestSerialize: serialize_pb_DelRequest,
+    requestDeserialize: deserialize_pb_DelRequest,
+    responseSerialize: serialize_pb_DelResponse,
+    responseDeserialize: deserialize_pb_DelResponse,
+  },
+};
+
+exports.KeyValueServiceClient = grpc.makeGenericClientConstructor(KeyValueServiceService);
