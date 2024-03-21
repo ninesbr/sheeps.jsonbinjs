@@ -411,3 +411,138 @@ export namespace AboutResponse {
         infoMap: Array<[string, string]>,
     }
 }
+
+export class SetRequest extends jspb.Message { 
+    getKey(): string;
+    setKey(value: string): SetRequest;
+    getValue(): string;
+    setValue(value: string): SetRequest;
+    getExpireat(): string;
+    setExpireat(value: string): SetRequest;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): SetRequest.AsObject;
+    static toObject(includeInstance: boolean, msg: SetRequest): SetRequest.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: SetRequest, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): SetRequest;
+    static deserializeBinaryFromReader(message: SetRequest, reader: jspb.BinaryReader): SetRequest;
+}
+
+export namespace SetRequest {
+    export type AsObject = {
+        key: string,
+        value: string,
+        expireat: string,
+    }
+}
+
+export class GetRequest extends jspb.Message { 
+    getKey(): string;
+    setKey(value: string): GetRequest;
+    getCache(): boolean;
+    setCache(value: boolean): GetRequest;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): GetRequest.AsObject;
+    static toObject(includeInstance: boolean, msg: GetRequest): GetRequest.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: GetRequest, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): GetRequest;
+    static deserializeBinaryFromReader(message: GetRequest, reader: jspb.BinaryReader): GetRequest;
+}
+
+export namespace GetRequest {
+    export type AsObject = {
+        key: string,
+        cache: boolean,
+    }
+}
+
+export class DelRequest extends jspb.Message { 
+    getKey(): string;
+    setKey(value: string): DelRequest;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): DelRequest.AsObject;
+    static toObject(includeInstance: boolean, msg: DelRequest): DelRequest.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: DelRequest, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): DelRequest;
+    static deserializeBinaryFromReader(message: DelRequest, reader: jspb.BinaryReader): DelRequest;
+}
+
+export namespace DelRequest {
+    export type AsObject = {
+        key: string,
+    }
+}
+
+export class SetResponse extends jspb.Message { 
+    getKey(): string;
+    setKey(value: string): SetResponse;
+    getValue(): string;
+    setValue(value: string): SetResponse;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): SetResponse.AsObject;
+    static toObject(includeInstance: boolean, msg: SetResponse): SetResponse.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: SetResponse, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): SetResponse;
+    static deserializeBinaryFromReader(message: SetResponse, reader: jspb.BinaryReader): SetResponse;
+}
+
+export namespace SetResponse {
+    export type AsObject = {
+        key: string,
+        value: string,
+    }
+}
+
+export class GetResponse extends jspb.Message { 
+    getKey(): string;
+    setKey(value: string): GetResponse;
+    getValue(): string;
+    setValue(value: string): GetResponse;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): GetResponse.AsObject;
+    static toObject(includeInstance: boolean, msg: GetResponse): GetResponse.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: GetResponse, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): GetResponse;
+    static deserializeBinaryFromReader(message: GetResponse, reader: jspb.BinaryReader): GetResponse;
+}
+
+export namespace GetResponse {
+    export type AsObject = {
+        key: string,
+        value: string,
+    }
+}
+
+export class DelResponse extends jspb.Message { 
+    getKey(): string;
+    setKey(value: string): DelResponse;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): DelResponse.AsObject;
+    static toObject(includeInstance: boolean, msg: DelResponse): DelResponse.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: DelResponse, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): DelResponse;
+    static deserializeBinaryFromReader(message: DelResponse, reader: jspb.BinaryReader): DelResponse;
+}
+
+export namespace DelResponse {
+    export type AsObject = {
+        key: string,
+    }
+}

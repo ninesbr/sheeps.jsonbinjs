@@ -175,3 +175,70 @@ export class JsonStorageServiceClient extends grpc.Client implements IJsonStorag
     public deleteDocuments(request: message_pb.DeleteDocsRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: message_pb.DeleteDocsResponse) => void): grpc.ClientUnaryCall;
     public deleteDocuments(request: message_pb.DeleteDocsRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: message_pb.DeleteDocsResponse) => void): grpc.ClientUnaryCall;
 }
+
+interface IKeyValueServiceService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
+    get: IKeyValueServiceService_IGet;
+    set: IKeyValueServiceService_ISet;
+    delete: IKeyValueServiceService_IDelete;
+}
+
+interface IKeyValueServiceService_IGet extends grpc.MethodDefinition<message_pb.GetRequest, message_pb.GetResponse> {
+    path: "/pb.KeyValueService/Get";
+    requestStream: false;
+    responseStream: false;
+    requestSerialize: grpc.serialize<message_pb.GetRequest>;
+    requestDeserialize: grpc.deserialize<message_pb.GetRequest>;
+    responseSerialize: grpc.serialize<message_pb.GetResponse>;
+    responseDeserialize: grpc.deserialize<message_pb.GetResponse>;
+}
+interface IKeyValueServiceService_ISet extends grpc.MethodDefinition<message_pb.SetRequest, message_pb.SetResponse> {
+    path: "/pb.KeyValueService/Set";
+    requestStream: false;
+    responseStream: false;
+    requestSerialize: grpc.serialize<message_pb.SetRequest>;
+    requestDeserialize: grpc.deserialize<message_pb.SetRequest>;
+    responseSerialize: grpc.serialize<message_pb.SetResponse>;
+    responseDeserialize: grpc.deserialize<message_pb.SetResponse>;
+}
+interface IKeyValueServiceService_IDelete extends grpc.MethodDefinition<message_pb.DelRequest, message_pb.DelResponse> {
+    path: "/pb.KeyValueService/Delete";
+    requestStream: false;
+    responseStream: false;
+    requestSerialize: grpc.serialize<message_pb.DelRequest>;
+    requestDeserialize: grpc.deserialize<message_pb.DelRequest>;
+    responseSerialize: grpc.serialize<message_pb.DelResponse>;
+    responseDeserialize: grpc.deserialize<message_pb.DelResponse>;
+}
+
+export const KeyValueServiceService: IKeyValueServiceService;
+
+export interface IKeyValueServiceServer extends grpc.UntypedServiceImplementation {
+    get: grpc.handleUnaryCall<message_pb.GetRequest, message_pb.GetResponse>;
+    set: grpc.handleUnaryCall<message_pb.SetRequest, message_pb.SetResponse>;
+    delete: grpc.handleUnaryCall<message_pb.DelRequest, message_pb.DelResponse>;
+}
+
+export interface IKeyValueServiceClient {
+    get(request: message_pb.GetRequest, callback: (error: grpc.ServiceError | null, response: message_pb.GetResponse) => void): grpc.ClientUnaryCall;
+    get(request: message_pb.GetRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: message_pb.GetResponse) => void): grpc.ClientUnaryCall;
+    get(request: message_pb.GetRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: message_pb.GetResponse) => void): grpc.ClientUnaryCall;
+    set(request: message_pb.SetRequest, callback: (error: grpc.ServiceError | null, response: message_pb.SetResponse) => void): grpc.ClientUnaryCall;
+    set(request: message_pb.SetRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: message_pb.SetResponse) => void): grpc.ClientUnaryCall;
+    set(request: message_pb.SetRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: message_pb.SetResponse) => void): grpc.ClientUnaryCall;
+    delete(request: message_pb.DelRequest, callback: (error: grpc.ServiceError | null, response: message_pb.DelResponse) => void): grpc.ClientUnaryCall;
+    delete(request: message_pb.DelRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: message_pb.DelResponse) => void): grpc.ClientUnaryCall;
+    delete(request: message_pb.DelRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: message_pb.DelResponse) => void): grpc.ClientUnaryCall;
+}
+
+export class KeyValueServiceClient extends grpc.Client implements IKeyValueServiceClient {
+    constructor(address: string, credentials: grpc.ChannelCredentials, options?: Partial<grpc.ClientOptions>);
+    public get(request: message_pb.GetRequest, callback: (error: grpc.ServiceError | null, response: message_pb.GetResponse) => void): grpc.ClientUnaryCall;
+    public get(request: message_pb.GetRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: message_pb.GetResponse) => void): grpc.ClientUnaryCall;
+    public get(request: message_pb.GetRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: message_pb.GetResponse) => void): grpc.ClientUnaryCall;
+    public set(request: message_pb.SetRequest, callback: (error: grpc.ServiceError | null, response: message_pb.SetResponse) => void): grpc.ClientUnaryCall;
+    public set(request: message_pb.SetRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: message_pb.SetResponse) => void): grpc.ClientUnaryCall;
+    public set(request: message_pb.SetRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: message_pb.SetResponse) => void): grpc.ClientUnaryCall;
+    public delete(request: message_pb.DelRequest, callback: (error: grpc.ServiceError | null, response: message_pb.DelResponse) => void): grpc.ClientUnaryCall;
+    public delete(request: message_pb.DelRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: message_pb.DelResponse) => void): grpc.ClientUnaryCall;
+    public delete(request: message_pb.DelRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: message_pb.DelResponse) => void): grpc.ClientUnaryCall;
+}
