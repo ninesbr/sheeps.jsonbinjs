@@ -1,4 +1,4 @@
-import {ChannelCredentials, Metadata} from "@grpc/grpc-js";
+import {ChannelCredentials, Metadata, status} from "@grpc/grpc-js";
 import { KVInterface } from "./jsonbin.keyvalue.interfaces";
 import {JsonBinError} from "../jsonbin.error";
 import {KeyValueServiceClient} from "../message_grpc_pb";
@@ -54,15 +54,15 @@ export class KVServer implements KVInterface {
         return m;
     }
 
-    get(key: string, cache?: boolean): Promise<string> {
+    get(key: string, cache: boolean = true): Promise<string> {
         const m = this.getMetadata();
         const req = new GetRequest();
         req.setKey(key);
-        req.setCache(cache || true);
+        req.setCache(cache);
         return new Promise<string>((resolve, reject) => {
-            this._client.get(req, m, (err, res) => {
+            this._client.get(req, m, (err: any, res) => {
                 if (err) {
-                    reject(new JsonBinError(err.message));
+                    reject(new JsonBinError(status[err?.code], err.details));
                     return;
                 }
                 resolve(res.getValue());
